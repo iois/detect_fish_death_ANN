@@ -62,7 +62,7 @@ int main()
 	params.bp_moment_scale = 0.1; // 权值更新冲量
 
 	// 定义网络大小: 3层{ 输入层 60 , 隐藏层30 , 输出层1 }
-	Mat layerSizes = (Mat_<int>(1, 3) << 60, 30, 1);
+	Mat layerSizes = (Mat_<int>(1, 3) << 60,30,1);
 
 	bp.create(layerSizes, CvANN_MLP::SIGMOID_SYM);
 
@@ -72,6 +72,7 @@ int main()
 	bp.train(trainingDataMat_0, labelsMat, Mat(), Mat(), params);
 
 	cout << "train end" << endl;
+	bp.save("bp_network.xml");  // 保存训练好的网络到.xml文件中
 
 	// testing
 	string path_testing_0 = "D:\\liyi\\Videos\\test_0";
@@ -92,14 +93,12 @@ int main()
 	cout << "test 1:" << endl;
 	for (size_t i = 0; i < responseMat.rows; i++)
 	{
-		if (responseMat.at<float>(i, 0)>0.5){ cout << "死 " ; }
-		else{ cout << "活 " ; }
+		cout << responseMat.at<float>(i, 0)<<endl;
 	}
 	cout << endl << "test 2:" << endl;
 	for (size_t i = 0; i < responseMat1.rows; i++)
 	{
-		if (responseMat1.at<float>(i, 0)>0.5){ cout << "死 " ; }
-		else{ cout << "活 " ; }
+		cout << responseMat1.at<float>(i, 0)<< endl;
 	}
 	cout << endl;
 	return 0;
